@@ -13,6 +13,8 @@
             Helper Middleware to attach the ClaimsPrincipal to the FunctionContext. Only supports App Roles for Authorization.
         </Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
+        <MinVerIgnoreHeight>true</MinVerIgnoreHeight>
     </PropertyGroup>
     
     <ItemGroup>

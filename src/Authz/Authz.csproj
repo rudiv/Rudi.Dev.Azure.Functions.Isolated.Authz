@@ -12,7 +12,12 @@
         <Description>
             Helper Middleware to attach the ClaimsPrincipal to the FunctionContext. Only supports App Roles for Authorization.
         </Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.14.1" />

@@ -40,9 +40,14 @@ public static class FunctionContextExtensions
         where TAttribute : Attribute
     {
         var point = context.FunctionDefinition.EntryPoint.LastIndexOf('.');
-        var methodInfo = Assembly.GetExecutingAssembly()
-            .GetType(context.FunctionDefinition.EntryPoint[..point])!
-            .GetMethod(context.FunctionDefinition.EntryPoint[(point + 1)..])!;
+        var methodInfo = Assembly.LoadFrom(context.FunctionDefinition.PathToAssembly)
+            .GetType(context.FunctionDefinition.EntryPoint[..point])?
+            .GetMethod(context.FunctionDefinition.EntryPoint[(point + 1)..]);
+
+        if (methodInfo == null)
+        {
+            throw new InvalidOperationException($"Could not find function method in Assembly - Looking for {context.FunctionDefinition.EntryPoint}");
+        }
 
         return methodInfo.GetCustomAttributes<TAttribute>()
             .Concat(methodInfo.DeclaringType!.GetCustomAttributes<TAttribute>())

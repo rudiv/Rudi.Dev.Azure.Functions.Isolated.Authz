@@ -42,17 +42,14 @@ public class AuthorizationMiddleware: IFunctionsWorkerMiddleware
                 if (responseData == null)
                 {
                     
-                    httpRequestData.CreateResponse(HttpStatusCode.Unauthorized);
+                    responseData = httpRequestData.CreateResponse(HttpStatusCode.Unauthorized);
                 }
                 else
                 {
                     responseData.StatusCode = HttpStatusCode.Unauthorized;
                 }
 
-                if (responseData != null)
-                {
-                    await responseData.WriteStringAsync(nameof(HttpStatusCode.Unauthorized));
-                }
+                await responseData.WriteStringAsync(nameof(HttpStatusCode.Unauthorized));
 
                 // If we have multiple output bindings, find the HTTP one
                 var httpOutputBinding = context.GetOutputBindings<HttpResponseData>().FirstOrDefault(b => b.BindingType == "http" && b.Name != "$return");
